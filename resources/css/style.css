@@ -1,0 +1,664 @@
+/* 
+This file uses the autoprefixor extention in Brackets to prefix certain properties
+This ensures the same vibe on all browsers.
+*/
+
+/*------------------------------------------------------------------------------*/
+/* BASIC SETUP */
+/*------------------------------------------------------------------------------*/
+
+* {
+    margin:0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    background-color: #fff;
+    color: #444;
+    font-family: 'Lato', 'Arial', sans-serif;
+    font-weight: 300;
+    font-size: 20px;
+    /*Enable ligatures, style over speed: */
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+}
+
+/*This class clears the float AFTER an element, stopping it from dipping into other sections: */
+.clearfix {zoom:1}
+.clearfix:after {
+    content: '.';
+    clear: both;
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+
+
+/*------------------------------------------------------------------------------*/
+/* REUSABLE COMPONENTS */
+/*------------------------------------------------------------------------------*/
+
+/*Class used to make an element into a horizontal row: */
+.row {
+    /*Only this value is absolute, the rest will be relative: */
+    max-width: 1140px;
+    /*First value is top/bottom, second is left/right: */
+    margin: 0 auto;
+}
+
+section { padding: 80px 0; }
+
+.box { padding: 1%; }
+
+/*---------- HEADINGS ----------*/
+
+h1,
+h2,
+h3 {
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
+h1 {
+    margin top: 0;
+    margin bottom: 20px;
+    color: #fff;
+    font-size: 240%; /*Relative to the base 20px font size*/    
+    word-spacing: 4px;
+    letter-spacing: 1px;
+}
+
+h2 {
+    font-size: 180%;
+    word-spacing: 2px;
+    text-align: center;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+}
+
+/*after pseudoclass creates an in-line element after the element we are styling*/
+h2:after {
+    display:block;
+    height: 2px;
+    background-color: #e67e22;
+    content: " ";
+    width: 100px;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+h3 {
+    font-size: 110%;
+    margin-bottom: 15px;
+}
+
+/*---------- PARAGRAPHS ----------*/
+
+.long-copy {
+    line-height: 145%;
+    width: 70%;
+    margin-left: 15%; /* + 70 = 100%*/    
+}
+
+.box p {
+    font-size: 90%;
+    line-height: 145%;
+}
+
+/*---------- ICONS ----------*/
+.icon-big {
+    font-size: 300%;
+    display: block;
+    color: #e67e22;
+    margin-bottom: 10px;
+}
+
+.icon-small {
+    display: inline-block;
+    width: 30px;
+    text-align: center;
+    color: #e67e22;
+    font-size: 120%;
+    margin-right: 10px;
+    
+    /*Secrets to align text with the icons: */
+    line-height: 120%;
+    vertical-align: middle;
+    margin-top: -4px;
+}
+
+/*---------- LINKS ----------*/
+
+a:link,
+a:visited {
+    color: #e67e22;
+    text-decoration: none;
+    padding-bottom: 1px;
+    border-bottom: 1px solid #e67e22;
+    -webkit-transition: border-bottom 0.2s, color 0.2s;
+    transition: border-bottom 0.2s, color 0.2s;
+}
+
+a:hover,
+a:active {
+    color: #444;
+    border-bottom: 1px solid transparent;
+}
+
+
+/*---------- BUTTONS ----------*/
+
+/*Buttons and links have different states, defined as pseudoclasses: link, visited, active, hover: */
+.btn:link,
+.btn:visited,
+input[type=submit] {
+    display: inline-block;
+    padding: 10px 30px;
+    font-weight: 300;
+    text-decoration: none;
+    border-radius: 200px;
+    border: 1px solid #e67e22;
+    color: #fff;
+    /*For a gradual change of state when hovered: */
+    -webkit-transition: background-color 0.2s, border 0.2s, color 0.2s;
+    transition: background-color 0.2s, border 0.2s, color 0.2s;
+}
+
+.btn-full:link,
+.btn-full:visited {
+    background-color: #e67e22;
+    margin-right: 15px;
+}
+
+.btn-ghost:link,
+.btn-ghost:visited,
+input[type=submit] {
+    color: #e67e22;
+}
+
+/*Not best solution but works for now*/
+#first-ghost:link,
+#first-ghost:hover {
+    color: #fff;
+}
+
+/*When a button is hovered over or clicked: */
+.btn:hover,
+.btn:active,
+input[type=submit]:hover,
+input[type=submit]:active {
+    background-color: #bf6516;
+    border: 1px solid #bf6516;
+    color: #fff;
+}
+
+/*
+header .btn:link,
+header .btn:active {
+    color: #fff;
+} 
+/*
+WHY DOESN'T THIS OVERRIDE WORK?
+Because header an element, which has lower specificity ranking than a class(.btn).
+This means that this whole selector is basically just seen as .btn.
+*/
+
+
+/*------------------------------------------------------------------------------*/
+/* HEADER */
+/*------------------------------------------------------------------------------*/
+
+header {
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.7)), to(rgba(0, 0, 0, 0.7))), url(img/hero-min.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(img/hero-min.jpg);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    /*Make height fill full viewable screen: */
+    height: 100vh;
+}
+
+
+
+/*We want this box to be absolute, so we don't use our responsive grid: */
+.hero-text-box {
+    position: absolute;
+    width: 1140px;
+    top: 50%; /*Positioned 50% top of parent element (header)*/
+    left: 50%;
+    /*Pull the element into the centre (half-of-half): */
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.logo {
+    margin-top: 20px;
+    height: 100px;
+    width: auto;
+    float: left;
+}
+
+.logo-black { 
+    display: none; /* It's there, but not immediately visible */
+    height: 50px;
+    width: auto;
+    float: left;
+    margin-top: 5px 0;
+} 
+
+/* Main navi */
+.main-nav {
+    margin-top: 65px;
+    float: right;
+    list-style: none;
+}
+
+/*For individual list elements in our main nav table: */
+.main-nav li {
+    display: inline-block; /*This will put them side-by-side*/
+    margin-left: 40px; /*Because they are floating to the right*/
+}
+
+/*For the appearance of the links: */
+.main-nav li a:link,
+.main-nav li a:visited{
+    padding: 8px 0;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 90%;
+    border-bottom: 2px solid transparent; /*Need invisible border for transition*/
+    -webkit-transition: border-bottom 0.4s;
+    transition: border-bottom 0.4s;
+}
+
+.main-nav li a:hover,
+.main-nav li a:active{
+    border-bottom: 2px solid #e67e22;
+}
+
+
+/* Mobile navi */
+
+.mobile-nav-icon {
+    float: right;
+    margin-top: 30px;
+    cursor: pointer; /* This only happens automatically if we have an href */
+    display: none;
+}
+
+.mobile-nav-icon ion-icon {
+    font-size: 200%;
+    color: #fff;
+}
+
+
+/* Sticky navi */
+.sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgb(255, 255, 255, 0.98);
+    box-shadow: 0 2px 2px #efefef;
+    z-index: 9999; /* Define vertical stacking of element to top, it's above everything */
+}
+
+.sticky .main-nav {
+    margin-top: 18px;
+}
+
+.sticky .main-nav li a:link,
+.sticky .main-nav li a:visited {
+    padding: 16px 0;
+    color: #555;
+}
+
+.sticky .logo { display: none; }
+.sticky .logo-black { display: block; }
+
+
+/*------------------------------------------------------------------------------*/
+/* SECTION FEATURES */
+/*------------------------------------------------------------------------------*/
+
+/* We only want a bottom margin for this specific paragraph: */
+.section-features .long-copy { margin-bottom: 30px; }
+
+
+/*------------------------------------------------------------------------------*/
+/* SECTION MEALS */
+/*------------------------------------------------------------------------------*/
+
+.section-meals { padding: 0; }
+
+.meals-showcase {
+    list-style: none; /*We don't want bullet points, which are the browser default*/
+    width: 100%; /*We want the entire browser width*/
+}
+
+.meals-showcase li {
+    display: block;
+    float: left;
+    width: 25%; /*4 elements across the meals-showcase*/
+}
+
+.meal-photo {
+    width: 100%;
+    margin: 0;
+    overflow: hidden; /*Since our images are larger than containers, only show container view in*/
+    background-color: black;
+}
+
+.meal-photo img {
+    opacity: 0.7;
+    width: 100%; /*Ensure that the image is exactly as wide as its container*/
+    height: auto;
+    -webkit-transform: scale(1.15);
+    transform: scale(1.15);
+    -webkit-transition: opacity 0.5s, -webkit-transform 0.5s;
+    transition: opacity 0.5s, -webkit-transform 0.5s;
+    transition: transform 0.5s, opacity 0.5s;
+    transition: transform 0.5s, opacity 0.5s, -webkit-transform 0.5s;
+}
+
+.meal-photo img:hover {
+    -webkit-transform: scale(1.03);
+    transform: scale(1.03); /*To avoid a strange white line that appears below*/
+    opacity: 1;
+}
+
+
+/*------------------------------------------------------------------------------*/
+/* SECTION HOW IT WORKS */
+/*------------------------------------------------------------------------------*/
+
+.section-steps { background-color: #f4f4f4; }
+
+.steps-box:first-child {
+    text-align: right; /*Works for all in-line elements, not just text*/
+    padding-right: 3%; 
+    margin-top: 30px;
+
+}
+
+.steps-box:last-child {
+    padding-left: 3%;
+    margin-top: 70px;
+}
+
+.app-screen { 
+    width: 40%;
+}
+
+.works-step{ margin-bottom: 50px; }
+
+.works-step:last-of-type{ margin-bottom: 100px; }
+
+/*Get the steps to be in circle borders with text to the right.*/
+.works-step div{
+    color: #e67e22;
+    border: 2px solid #e67e22;
+    border-radius: 50%;
+    height: 55px;
+    width: 55px;
+    text-align: center;
+    display: inline-block; /*Hybrid, is a box but doesn't force line-break*/
+    padding: 5px;
+    float: left;
+    font-size: 150%;
+    margin-right: 25px;
+}
+
+.btn-app:link,
+.btn-app:visited {
+    border: 0;
+}
+
+/*Get the app store images the same size: */
+.btn-app img{
+    height: 50px;
+    width: auto;
+    margin-right: 10px;
+
+}
+
+
+/*------------------------------------------------------------------------------*/
+/* SECTION CITIES */
+/*------------------------------------------------------------------------------*/
+
+/*This is the only section that has images directly inside boxes: */
+.box img{
+    width: 100%;
+    height:auto;
+    margin-bottom: 15px;
+}
+
+.city-feature { margin-bottom: 5px; }
+
+
+/*------------------------------------------------------------------------------*/
+/* SECTION TESTIMONIALS */
+/*------------------------------------------------------------------------------*/
+
+.section-testimonials {
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.8)), to(rgba(0, 0, 0, 0.8))), url(img/back-customers-min.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(img/back-customers-min.jpg);
+    background-size: cover;
+    color: white;
+    background-attachment: fixed; /*Image won't scroll*/
+}
+
+blockquote {
+    padding: 2%;
+    font-style: italic; /*We included this in our imported Google web font*/
+    line-height: 145%;
+    position: relative;
+    margin-top: 40px;
+}
+
+blockquote:before {
+    display: block;
+    content: "\201C";
+    font-size: 500%;
+    position: absolute; /*Is absolute with respect to its parent*/
+    top: -4px;
+    left: -4px;
+}
+
+cite {
+    display: block;
+    font-size: 90%;
+    margin-top: 25px;
+}
+
+cite img {
+    height: 45px;
+    border-radius: 50%;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+
+/*------------------------------------------------------------------------------*/
+/* SECTION PLAN */
+/*------------------------------------------------------------------------------*/
+
+.section-plans { background-color: #f4f4f4; }
+
+.plan-box {
+    background-color: #fff;
+    border-radius: 5px;
+    width: 90%;
+    margin-left: 5%; /*1/2 of 10%, centers it inside parent
+    box-shadow: 0 2px 2px #fff;*/
+}
+
+.plan-box div {
+    padding: 15px;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.plan-box div:first-child {
+    background-color: #fcfcfc;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.plan-box div:last-child {
+    text-align: center;
+    border: 0;
+}
+
+.plan-price
+{
+    font-size: 300%;
+    margin-bottom: 10px;
+    font-weight: 100px;
+    color: #e67e22;
+}
+
+.plan-price span {
+    font-size: 30%; /*100% would be the 300% size of the parent, not the initial 20px*/
+    font-weight: 300; /*To override the parent and get back to standard font weight 300*/
+}
+
+.plan-price-meal { font-size: 80%; }
+
+.plan-box ul { list-style: none; }
+
+.plan-box ul li { padding: 5px 0; }
+
+
+/*------------------------------------------------------------------------------*/
+/* SECTION SIGN UP FORM */
+/*------------------------------------------------------------------------------*/
+
+.contact-form {
+    width: 60%;
+    margin: 0 auto; /*Can also use 20% left margin, both work*/
+}
+
+input[type=text],
+input[type=email],
+select,
+textarea {
+    width: 100%;
+    padding: 7px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+
+textarea { height:100px; }
+
+input[type=checkbox] { margin: 10px 5px 10px 0; }
+
+*:focus {outline: none;} /*Gets rid of default borders around text boxes*/
+
+
+/*------------------------------------------------------------------------------*/
+/* FOOTER */
+/*------------------------------------------------------------------------------*/
+
+footer {
+    background-color: #333;
+    padding: 50px;
+    font-size: 80%;
+}
+
+.footer-nav {
+    list-style: none;
+    float: left;
+}
+
+.social-links {
+    list-style: none;
+    float: right;
+}
+
+.footer-nav li,
+.social-links li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+/*To make the last icon of a list extend all the way to the end of its row: */
+.footer-nav li:last-child,
+.social-links li:last-child {
+    margin-right: 0;
+}
+
+.footer-nav li a:link,
+.footer-nav li a:visited,
+.social-links li a:link,
+.social-links li a:visited {
+    text-decoration: none;
+    border: 0;
+    color: #888;
+    -webkit-transition: 0.2s;
+    transition: 0.2s;
+}
+
+.footer-nav li a:hover,
+.footer-nav li a:active {
+    color: #ddd;
+}
+
+.social-links li a:link,
+.social-links li a:visited {
+    font-size: 170%;
+}
+
+ion-icon[name=logo-facebook] { color: #3b5998; }
+
+ion-icon[name=logo-twitter] { color: #00aced; }
+
+ion-icon[name=logo-google-playstore] { color: #107c10; }
+
+ion-icon[name=logo-instagram] { color: #e60012; }
+
+ion-icon[name=logo-facebook]:hover,
+ion-icon[name=logo-twitter]:hover,
+ion-icon[name=logo-google-playstore]:hover,
+ion-icon[name=logo-instagram]:hover {
+    color: #ddd;
+    -webkit-transition: 0.2s;
+    transition: 0.2s;
+}
+
+
+
+footer p{
+    color: #888;
+    text-align: center;
+    margin-top: 30px;
+}
+
+
+/*------------------------------------------------------------------------------*/
+/* ANIMATIONS */
+/*------------------------------------------------------------------------------*/
+
+.js--wp-1,
+.js--wp-2,
+.js--wp-3 {
+    opacity: 0;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+}
+
+.js--wp-4 {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+}
+
+/* Ensure they have BOTH classes by making them touch here: */
+.js--wp-1.animated,
+.js--wp-2.animated,
+.js--wp-3.animated {
+    opacity: 1;
+}
